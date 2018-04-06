@@ -27,7 +27,10 @@ class Controller {
     this.view.editItem(todo);
 
   }
-  removeTodo(){
+  removeTodo(id){
+    this.model.removeItem(id);
+    this.view.removeItem(id);
 
   }
 }
+export default Controller;
