@@ -19,7 +19,7 @@ class Model {
   updateItem(id, date){
     const item = this.getItem(id);
     Object.keys(data).forEach(prop => item[prop] = data[prop]);
-
+    return item;
   }
   removeItem(id){
     const index = this.state.findIndex(item => item.id == id);

@@ -35,6 +35,8 @@ class View extends EventEmitter{
     return item;
 
   }
+
+
   handleAdd(event){
     event.preventDefault();
 
@@ -53,7 +55,7 @@ class View extends EventEmitter{
     const id = listItem.getAttribute('data-id');
     const completed = target.completed;
 
-    // update model
+    this.emit('toggle', {id,completed});
   }
   handleEdit({target}){
     const listItem = target.parentNode;
@@ -66,7 +68,7 @@ class View extends EventEmitter{
 
 
     if (isEditing){
-      //update model
+      this.emit('edit',{id,title});
     } else {
       input.value = label.textContent;
       editButton.textContent = 'Save';
@@ -76,9 +78,10 @@ class View extends EventEmitter{
 
   }
   handleRemove({target}){
-    const listItem = target.parentNode
+    const listItem = target.parentNode;
+    const id = listItem.getAttribute('data-id');
 
-
+    this.emit('remove', id);
   }
 
   findListItem(id){
