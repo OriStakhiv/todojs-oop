@@ -1,6 +1,7 @@
-import {createElement} from './helpers.js';
-class View {
+import {createElement, EventEmitter} from './helpers.js';
+class View extends EventEmitter{
   constructor() {
+    super(); // for norm  init
     this.form = document.getElementById('todo-form');
     this.input = document.getElementById('add-input');
     this.list = document.getElementById('todo-list');
@@ -36,6 +37,13 @@ class View {
   }
   handleAdd(event){
     event.preventDefault();
+
+    if (!this.input.value) return alert ('Write task!');
+    const value = this.input.value;
+
+    this.emit('add', value);
+
+
 
 
 

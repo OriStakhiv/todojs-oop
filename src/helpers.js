@@ -11,4 +11,23 @@ function createElement(tag,props, ...children){
   return element;
 
 }
-export {createElement};
+class EventEmitter {  //notific
+  constructor() {
+    this.evens = {
+        //  'add':[callback, callback, callback],
+        //  'edit':[callback,callback,callback]
+    };
+  }
+    on(type, callback){
+      this.events[type] = this.events[type] || [];
+      this.evens[type].push(callback);
+
+    }
+    emit(type, arg){
+      if (this.event[type]){
+        this.events[type].forEach(callback => callback(arg));
+      }
+
+    }
+}
+export {createElement, EventEmitter};

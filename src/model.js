@@ -14,6 +14,7 @@ class Model {
   }
   addItem(item){
     this.state.push(item);
+    return item;
   }
   updateItem(id, date){
     const item = this.getItem(id);
