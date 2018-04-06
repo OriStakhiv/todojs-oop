@@ -1,6 +1,9 @@
-class Model {
-  constructor(state = []) {
-    this.state = state;
+import {EventEmitter} from './helpers';
+
+class Model extends EventEmitter {
+  constructor(items = []) {
+    super();
+    this.items = items;
         //{
         //  id: blablanumber,
         //  title: '',
@@ -10,10 +13,10 @@ class Model {
 
   }
   getItem(id){
-    return this.state.find(item => item.id == id);
+    return this.items.find(item => item.id == id);
   }
   addItem(item){
-    this.state.push(item);
+    this.items.push(item);
     return item;
   }
   updateItem(id, date){
@@ -22,9 +25,9 @@ class Model {
     return item;
   }
   removeItem(id){
-    const index = this.state.findIndex(item => item.id == id);
+    const index = this.items.findIndex(item => item.id == id);
     if (index > -1) {
-      this.state.splice(index, 1);
+      this.items.splice(index, 1);
     }
   }
 

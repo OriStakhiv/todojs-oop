@@ -9,13 +9,14 @@ class View extends EventEmitter{
 
   }
 
-  createElement(todo){
+  createListItem(todo){
     const checkbox = createElement('input', {type: 'checkbox', className: 'checkbox', checked: todo.completed ? 'checked' : ''});
     const label = createElement('label', {className: 'title'}, todo.title);
     const editInput= createElement('input', {type: 'text', className: 'textfield'});
     const editButton = createElement('button', {className: 'edit'}, 'Edit');
     const removeButton = createElement('button', {className: 'remove'}, 'Delete');
     const item = createElement('li', {className: 'todo-item${todo.completed ? ' completed' : ''}', 'data-id': todo.id }, checkbox, label, editInput, editButton, removeButton);
+
     return this.addEventListeners(item);
 
 
@@ -32,7 +33,7 @@ class View extends EventEmitter{
     removeButton.addEventListener('click', this.handleRemove.bind(this));
 
 
-    return item;
+    return listItem;
 
   }
 
@@ -53,9 +54,9 @@ class View extends EventEmitter{
   handleToggle({target}){ //checkbox
     const listItem = target.parentNode;
     const id = listItem.getAttribute('data-id');
-    const completed = target.completed;
+    const completed = target.checked;
 
-    this.emit('toggle', {id,completed});
+    this.emit('toggle', {id, completed});
   }
   handleEdit({target}){
     const listItem = target.parentNode;
