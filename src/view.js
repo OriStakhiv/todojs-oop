@@ -4,6 +4,7 @@ class View {
     this.form = document.getElementById('todo-form');
     this.input = document.getElementById('add-input');
     this.list = document.getElementById('todo-list');
+    this.form.addEventListener('submit', this.handleAdd.bind(this));
 
   }
 
@@ -20,8 +21,58 @@ class View {
   }
 
   addEventListeners(item){
-    
+    const checkbox = listItem.querySelector('.checkbox');
+    const editButton = listItem.querySelector('button.edit');
+    const removeButton = listItem.querySelector('button.remove');
+
+
+    checkbox.addEventListener('change', this.handleToggle.bind(this));
+    editButton.addEventListener('click', this.handleEdit.bind(this));
+    removeButton.addEventListener('click', this.handleRemove.bind(this));
+
+
+    return item;
+
   }
+  handleAdd(event){
+    event.preventDefault();
+
+
+
+  }
+  handleToggle({target}){ //checkbox
+    const listItem = target.parentNode;
+    const id = listItem.getAttribute('data-id');
+    const completed = target.completed;
+
+    // update model
+  }
+  handleEdit({target}){
+    const listItem = target.parentNode;
+    const id = listItem.getAttribute('data-id');
+    const label = listItem.querySelector('.title');
+    const input = listItem.querySelector('.textfield');
+    const editButton = listItem.querySelector('button.edit');
+    const title = input.value;
+    const isEditing = listItem.classList.contains('editing');
+
+
+    if (isEditing){
+      //update model
+    } else {
+      input.value = label.textContent;
+      editButton.textContent = 'Save';
+      listItem.classList.add('editing');
+    }
+
+
+  }
+  handleRemove({target}){
+    const listItem = target.parentNode
+
+
+  }
+
   findListItem(id){
     return this.list.querySelector('[data-id="${id}"]')
   }
