@@ -1,6 +1,12 @@
 class Model {
   constructor(state = []) {
     this.state = state;
+        //{
+        //  id: blablanumber,
+        //  title: '',
+        //  completed: false
+        //}
+
 
   }
   getItem(id){
