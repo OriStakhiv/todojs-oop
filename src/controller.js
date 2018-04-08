@@ -11,28 +11,35 @@ class Controller {
     view.show(model, items);
 
   }
+
   addTodo(title){
       const item =  this.model.addItem({
           id: Date.now(),    //unique value
-          title: title,
+          title,
           completed: false
     });
       this.view.addItem(item);
   }
-  toggleTodo({id, completed }){
-    const item = this.model.updateItem(id, { completed});
 
+  toggleTodo({id, completed }){
+
+    const item = this.model.updateItem(id, { completed });
     this.view.toggleItem(item);
   }
+
   editTodo({id, title}){
-    const item = this.model.updateItem(id, { title});
+
+    const item = this.model.updateItem(id, { title });
     this.view.editItem(item);
 
   }
+
   removeTodo(id){
+
     this.model.removeItem(id);
     this.view.removeItem(id);
 
   }
 }
+
 export default Controller;
