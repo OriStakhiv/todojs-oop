@@ -1,7 +1,11 @@
 import {createElement, EventEmitter} from './helpers.js';
+
 class View extends EventEmitter{
+
   constructor() {
+
     super(); // for norm  init
+
     this.form = document.getElementById('todo-form');
     this.input = document.getElementById('add-input');
     this.list = document.getElementById('todo-list');
@@ -19,7 +23,6 @@ class View extends EventEmitter{
 
     return this.addEventListeners(item);
 
-
   }
 
   addEventListeners(item){
@@ -27,37 +30,38 @@ class View extends EventEmitter{
     const editButton = listItem.querySelector('button.edit');
     const removeButton = listItem.querySelector('button.remove');
 
-
     checkbox.addEventListener('change', this.handleToggle.bind(this));
     editButton.addEventListener('click', this.handleEdit.bind(this));
     removeButton.addEventListener('click', this.handleRemove.bind(this));
 
-
-    return listItem;
-
+    return item;
   }
 
+  findListItem(id){
+    return this.list.querySelector('[data-id="${id}"]');
+  }
 
   handleAdd(event){
+
     event.preventDefault();
 
     if (!this.input.value) return alert ('Write task!');
+
     const value = this.input.value;
 
     this.emit('add', value);
 
-
-
-
-
   }
-  handleToggle({target}){ //checkbox
+
+  handleToggle({ target }){ //checkbox
+
     const listItem = target.parentNode;
     const id = listItem.getAttribute('data-id');
     const completed = target.checked;
 
     this.emit('toggle', {id, completed});
   }
+
   handleEdit({target}){
     const listItem = target.parentNode;
     const id = listItem.getAttribute('data-id');
@@ -67,31 +71,37 @@ class View extends EventEmitter{
     const title = input.value;
     const isEditing = listItem.classList.contains('editing');
 
-
     if (isEditing){
-      this.emit('edit',{id,title});
+
+      this.emit('edit', { id, title });
+
     } else {
+
       input.value = label.textContent;
       editButton.textContent = 'Save';
       listItem.classList.add('editing');
     }
-
-
   }
-  handleRemove({target}){
+
+  handleRemove({ target }){
     const listItem = target.parentNode;
-    const id = listItem.getAttribute('data-id');
 
-    this.emit('remove', id);
+    this.emit('remove', listItem.getAttribute('data-id'));
   }
 
-  findListItem(id){
-    return this.list.querySelector('[data-id="${id}"]')
+  show(todos){
+    todos.forEach(todo => {
+      const listItem = this.createListItem(todo);
+      this.list.appendChild(listItem);
+    });
   }
+
   addItem(todo){
+
     const listItem = this.createElement(todo);
     this.input.value = '';
     this.list.appendChild(listItem);
+
   }
 
   toggleItem(todo){
@@ -109,6 +119,7 @@ class View extends EventEmitter{
   }
 
   editItem(todo) {
+
     const listItem = this.findListItem(todo.id);
     const label = listItem.querySelector('.title');
     const input = listItem.querySelector('.textfield');
@@ -119,9 +130,10 @@ class View extends EventEmitter{
     listItem.classList.remove('editing');
 
   }
+
   removeItem(id){
 
-    const listItem = this.findListItem(todo.id);
+    const listItem = this.findListItem(id);
     this.list.removeChild(listItem);
 
   }
