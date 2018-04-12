@@ -15,7 +15,7 @@ class Model extends EventEmitter {
   }
 
   addItem(item){
-
+    
     this.items.push(item);
     this.emit('change',this.items);
 

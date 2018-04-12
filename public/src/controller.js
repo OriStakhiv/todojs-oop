@@ -13,6 +13,7 @@ class Controller {
   }
 
   addTodo(title){
+
       const item =  this.model.addItem({
           id: Date.now(),    //unique value
           title,
@@ -21,13 +22,13 @@ class Controller {
       this.view.addItem(item);
   }
 
-  toggleTodo({id, completed }){
-
+  toggleTodo({ id, completed }){
+    
     const item = this.model.updateItem(id, { completed });
     this.view.toggleItem(item);
   }
 
-  editTodo({id, title}){
+  editTodo({ id, title }){
 
     const item = this.model.updateItem(id, { title });
     this.view.editItem(item);
